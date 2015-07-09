@@ -16,6 +16,7 @@ function insertHeightLines(numTiers, parentId) {
   }
 }
 
+var blobObjects;
 function insertBlobs(blobs, numTiers, parentId) {
   var parent = document.getElementById(parentId);
   var bbox = parent.parentElement.getBBox();
@@ -31,7 +32,8 @@ function insertBlobs(blobs, numTiers, parentId) {
     var insideWidth = bbox.width - 2 * margin;
     return ((genXseed++ + 1) * insideWidth) / (xPositions - 1);
   }
-  
+
+  blobObjects = [];
   for (var i=0; i < blobs.length; i++) {
     var blob = blobs[i];
     var circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
@@ -41,6 +43,22 @@ function insertBlobs(blobs, numTiers, parentId) {
     circle.setAttribute("r", 5 * (numTiers - blob.maxTier + 1));
     circle.setAttribute("fill", "#ffffff");
     parent.appendChild(circle);
+    blobObjects.push(circle);
+  }
+}
+
+function moveBlobs() {
+  for (var i=0; i < blobObjects.length; i++) {
+    var circle = blobObjects[i];
+    var y = parseInt(circle.getAttribute("cy"), 10);
+    if (y == 600) {
+      y = ((300 * Math.random()) >> 0) + 200;
+      circle.setAttribute("r", ((1 + Math.random() * 5) >> 0) * 5);
+    }
+    y += 10;
+    if (y > 600)
+      y = 600;
+    circle.setAttribute("cy", y);
   }
 }
 
@@ -54,3 +72,5 @@ testBlobs = [
   { tier: 3, maxTier: 5, tierNormalizedY: 0.2 }
 ];
 insertBlobs(testBlobs, 5, "blobs");
+
+setInterval(moveBlobs, 1000);
