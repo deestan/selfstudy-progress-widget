@@ -1,0 +1,14 @@
+
+<svg version="1.1" id="Layer_3" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="250px" height="600px" viewBox="0 0 250 600" enable-background="new 0 0 250 600" xml:space="preserve">
+<g id="bg">
+  <linearGradient id="space" gradientUnits="userSpaceOnUse" x1="-780" y1="841" x2="-780" y2="250" gradientTransform="matrix(1 0 0 1 905 -250)">
+    <stop offset="0.00" style="stop-color:#FFF8E7"/>
+		<stop offset="0.15" style="stop-color:#EEEFDF"/>
+		<stop offset="0.35" style="stop-color:#97C1B8"/>
+		<stop offset="0.50" style="stop-color:#69A9A3"/>
+		<stop offset="0.95" style="stop-color:#042423"/>
+	</linearGradient>
+	<rect fill="url(#space)" width="250" height="600"/>
+</g>
+</svg>
