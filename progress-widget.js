@@ -14,7 +14,6 @@ function insertHeightLines(numTiers, parentId) {
     line.setAttribute("y2", y);
     parent.appendChild(line);
   }
-  console.log(parent);
 }
 
 function insertBlobs(blobs, numTiers, parentId) {
