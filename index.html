@@ -18,3 +18,14 @@
 </svg>
 
 <script src="progress-widget.js"></script>
+<script>
+  var testBlobs = [
+    { tier: 0, maxTier: 1, tierNormalizedY: 0.2 },
+    { tier: 3, maxTier: 3, tierNormalizedY: 0.2 },
+    { tier: 0, maxTier: 0, tierNormalizedY: 0.0 },
+    { tier: 2, maxTier: 3, tierNormalizedY: 0.9 },
+    { tier: 3, maxTier: 4, tierNormalizedY: 0.2 },
+    { tier: 3, maxTier: 5, tierNormalizedY: 0.2 }
+  ];
+  progressWidget.insertBlobs(testBlobs, 5, "blobs");
+</script>
