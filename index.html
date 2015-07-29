@@ -20,19 +20,19 @@
 <script src="progress-widget.js"></script>
 <script>
   var tiers = [
-    { startSec: 0, endSec: 60 },
+    { startSec: 0, endSec: 10 },
+    { startSec: 10, endSec: 30 },
+    { startSec: 30, endSec: 60 },
     { startSec: 60, endSec: 120 },
-    { startSec: 120, endSec: 180 },
-    { startSec: 180, endSec: 240 },
-    { startSec: 240, endSec: 300 }
+    { startSec: 120, endSec: 600 }
   ];
   var testBlobs = [
-    { maxTier: 1, nextTime: Date.now() + 30 },
-    { maxTier: 3, nextTime: Date.now() + 5 },
-    { maxTier: 0, nextTime: Date.now() + 60 },
-    { maxTier: 3, nextTime: Date.now() + 200 },
-    { maxTier: 4, nextTime: Date.now() + 300 },
-    { maxTier: 5, nextTime: Date.now() + 240 }
+    { maxTier: 1, nextTime: Date.now() + 30000 },
+    { maxTier: 3, nextTime: Date.now() + 5000 },
+    { maxTier: 0, nextTime: Date.now() + 60000 },
+    { maxTier: 3, nextTime: Date.now() + 200000 },
+    { maxTier: 4, nextTime: Date.now() + 300000 },
+    { maxTier: 5, nextTime: Date.now() + 240000 }
   ];
   var progressWidget = ProgressWidget(tiers, "blobs");
   progressWidget.insertBlobs(testBlobs);

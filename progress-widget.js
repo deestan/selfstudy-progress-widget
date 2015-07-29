@@ -1,6 +1,7 @@
 function ProgressWidget(tiers, parentId) {
   var numTiers = tiers.length;
   var tierHeight;
+  var allBlobs = [];
 
   function insertHeightLines(parentId) {
     var parent = document.getElementById(parentId);
@@ -39,7 +40,7 @@ function ProgressWidget(tiers, parentId) {
     for (var i=0; i < blobs.length; i++) {
       var blob = blobs[i];
       var circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-      var cy = 600 - getYPosition(blob);
+      var cy = bbox.height - getYPosition(blob);
       circle.setAttribute("cx", genX());
       circle.setAttribute("cy", cy);
       circle.setAttribute("r", 5 * (numTiers - blob.maxTier + 1));
@@ -52,13 +53,15 @@ function ProgressWidget(tiers, parentId) {
       animation.setAttribute("dur", "1s");
       animation.setAttribute("keySplines", "0 0.5 0 1");
       circle.appendChild(animation);
-      blobAnimations.push(animation);
       parent.appendChild(circle);
+
+      blobAnimations.push(animation);
+      allBlobs.push(blob);
     }
   }
 
   function getYPosition(blob) {
-    var secsLeft = blob.nextTime - Date.now();
+    var secsLeft = (blob.nextTime - Date.now()) / 1000;
     if (secsLeft < 0)
       secsLeft = 0;
     var tierIdx = null;
@@ -73,8 +76,9 @@ function ProgressWidget(tiers, parentId) {
   }
   
   function moveBlobs() {
-    for (var i=0; i < blobAnimations.length; i++) {
+    for (var i=0; i < allBlobs.length; i++) {
       var animation = blobAnimations[i];
+      var blob = allBlobs[i];
       var y = parseInt(animation.parentElement.getAttribute("cy"), 10);
       var oldY = y;
       animation.setAttribute("calcMode", "linear");
@@ -83,9 +87,7 @@ function ProgressWidget(tiers, parentId) {
         animation.parentElement.setAttribute("r", ((1 + Math.random() * 5) >> 0) * 5);
         animation.setAttribute("calcMode", "spline");
       }
-      y += 10;
-      if (y > 600)
-        y = 600;
+      y = 600 - getYPosition(blob);
       animation.setAttribute("values", oldY + " ; " + y);
       animation.beginElement();
     }
