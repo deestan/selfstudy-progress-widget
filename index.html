@@ -36,4 +36,23 @@
   ];
   var progressWidget = ProgressWidget(tiers, "blobs");
   progressWidget.insertBlobs(testBlobs);
+  setInterval(answerQuestions, 100);
+  function answerQuestions() {
+    function triangular (max) {
+      var min = 0;
+      var mode = 0;
+      var u = Math.random();
+      if (u < (mode - min) / (max - min))
+        return min + Math.sqrt(u * (max - min) * (mode - min));
+      else
+        return max - Math.sqrt((1 - u) * (max - min) * (max - mode));
+    }
+    for (var i=0; i<testBlobs.length; i++) {
+      var blob = testBlobs[i];
+      if (blob.nextTime <= Date.now() && Math.random() < 0.01) {
+        var maxSecs = tiers[tiers.length - 1].endSec;
+        blob.nextTime = Date.now() + triangular(maxSecs) * 1000;
+      }
+    }
+  }
 </script>

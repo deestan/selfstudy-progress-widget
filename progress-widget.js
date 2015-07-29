@@ -81,13 +81,12 @@ function ProgressWidget(tiers, parentId) {
       var blob = allBlobs[i];
       var y = parseFloat(animation.parentElement.getAttribute("cy"), 10);
       var oldY = y;
+      y = 600 - getYPosition(blob);
       animation.setAttribute("calcMode", "linear");
-      if (y >= 599) {
-        blob.nextTime = Date.now() + (tiers[tiers.length - 1].endSec * Math.random()) * 1000;
+      if (y < oldY) {
         animation.parentElement.setAttribute("r", ((1 + Math.random() * 5) >> 0) * 5);
         animation.setAttribute("calcMode", "spline");
       }
-      y = 600 - getYPosition(blob);
       animation.setAttribute("values", oldY + " ; " + y);
       animation.beginElement();
     }
