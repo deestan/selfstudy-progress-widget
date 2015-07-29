@@ -1,5 +1,7 @@
-function progressWidget() {
-  function insertHeightLines(numTiers, parentId) {
+function ProgressWidget(tiers, parentId) {
+  var numTiers = tiers.length;
+
+  function insertHeightLines(parentId) {
     var parent = document.getElementById(parentId);
     var bbox = parent.parentElement.getBBox();
     var height = bbox.height;
@@ -18,7 +20,7 @@ function progressWidget() {
   }
 
   var blobObjects;
-  function insertBlobs(blobs, numTiers, parentId) {
+  function insertBlobs(blobs) {
     var parent = document.getElementById(parentId);
     var bbox = parent.parentElement.getBBox();
     
@@ -75,7 +77,7 @@ function progressWidget() {
     }
   }
   
-  insertHeightLines(5, "heightLines");
+  insertHeightLines("heightLines");
 
   setInterval(moveBlobs, 1000);
 
@@ -83,5 +85,3 @@ function progressWidget() {
     insertBlobs: insertBlobs
   }
 }
-
-var progressWidget = progressWidget();
