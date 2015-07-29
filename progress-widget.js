@@ -79,7 +79,7 @@ function ProgressWidget(tiers, parentId) {
     for (var i=0; i < allBlobs.length; i++) {
       var animation = blobAnimations[i];
       var blob = allBlobs[i];
-      var y = parseInt(animation.parentElement.getAttribute("cy"), 10);
+      var y = parseFloat(animation.parentElement.getAttribute("cy"), 10);
       var oldY = y;
       animation.setAttribute("calcMode", "linear");
       if (y >= 599) {
