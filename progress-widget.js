@@ -1,13 +1,15 @@
 function ProgressWidget(tiers, parentId) {
   var numTiers = tiers.length;
+  var tierHeight;
 
   function insertHeightLines(parentId) {
     var parent = document.getElementById(parentId);
     var bbox = parent.parentElement.getBBox();
     var height = bbox.height;
-    var lineDistance = height / (numTiers - 1);
+    tierHeight = height / numTiers;
+    var lineDistance = tierHeight;
     for (var i=0; i < numTiers; i++) {
-      var y = (i * height) / (numTiers - 1);
+      var y = (i * height) / numTiers;
       var line = document.createElementNS("http://www.w3.org/2000/svg", "line");
       line.setAttribute("stroke", "#ffffff");
       line.setAttribute("stroke-width", 2);
@@ -24,9 +26,6 @@ function ProgressWidget(tiers, parentId) {
     var parent = document.getElementById(parentId);
     var bbox = parent.parentElement.getBBox();
     
-    var tierHeight = bbox.height / (numTiers - 1);
-    function tierTop(tierIdx) { return (numTiers - tierIdx - 1) * tierHeight; }
-    
     var genXseed = 0;
     function genX() {
       var xPositions = 10;
@@ -40,7 +39,7 @@ function ProgressWidget(tiers, parentId) {
     for (var i=0; i < blobs.length; i++) {
       var blob = blobs[i];
       var circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-      var cy = tierTop(blob.tier) - blob.tierNormalizedY * tierHeight;
+      var cy = 600 - getYPosition(blob);
       circle.setAttribute("cx", genX());
       circle.setAttribute("cy", cy);
       circle.setAttribute("r", 5 * (numTiers - blob.maxTier + 1));
@@ -56,6 +55,21 @@ function ProgressWidget(tiers, parentId) {
       blobAnimations.push(animation);
       parent.appendChild(circle);
     }
+  }
+
+  function getYPosition(blob) {
+    var secsLeft = blob.nextTime - Date.now();
+    if (secsLeft < 0)
+      secsLeft = 0;
+    var tierIdx = null;
+    for (var tierIdx=tiers.length - 1; tierIdx > 0; tierIdx--)
+      if (tiers[tierIdx].startSec < secsLeft && secsLeft < tiers[tierIdx].endSec)
+        break;
+    var tierBaseY = tierIdx * tierHeight;
+    var tierTimeSpan = tiers[tierIdx].endSec - tiers[tierIdx].startSec;
+    var timePosInTierNorm = (secsLeft - tiers[tierIdx].startSec) / tierTimeSpan;
+    var heightInTier = tierHeight * timePosInTierNorm;
+    return tierBaseY + heightInTier;
   }
   
   function moveBlobs() {
