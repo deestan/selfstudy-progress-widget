@@ -83,7 +83,7 @@ function ProgressWidget(tiers, parentId) {
       var oldY = y;
       animation.setAttribute("calcMode", "linear");
       if (y >= 599) {
-        y = ((300 * Math.random()) >> 0) + 200;
+        blob.nextTime = Date.now() + (tiers[tiers.length - 1].endSec * Math.random()) * 1000;
         animation.parentElement.setAttribute("r", ((1 + Math.random() * 5) >> 0) * 5);
         animation.setAttribute("calcMode", "spline");
       }

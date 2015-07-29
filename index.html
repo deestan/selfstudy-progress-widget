@@ -27,12 +27,12 @@
     { startSec: 120, endSec: 600 }
   ];
   var testBlobs = [
-    { maxTier: 1, nextTime: Date.now() + 30000 },
+    { maxTier: 1, nextTime: Date.now() + 3000 },
     { maxTier: 3, nextTime: Date.now() + 5000 },
-    { maxTier: 0, nextTime: Date.now() + 60000 },
-    { maxTier: 3, nextTime: Date.now() + 200000 },
-    { maxTier: 4, nextTime: Date.now() + 300000 },
-    { maxTier: 5, nextTime: Date.now() + 240000 }
+    { maxTier: 0, nextTime: Date.now() + 6000 },
+    { maxTier: 3, nextTime: Date.now() + 1000 },
+    { maxTier: 4, nextTime: Date.now() + 2000 },
+    { maxTier: 5, nextTime: Date.now() + 1500 }
   ];
   var progressWidget = ProgressWidget(tiers, "blobs");
   progressWidget.insertBlobs(testBlobs);
